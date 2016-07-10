@@ -7,6 +7,9 @@ class RNA(models.Model):
     description = models.TextField()
     views = models.IntegerField(default=0)
 
+    def is_mirna(self):
+        return 'miRNA' in self.identifier
+
     def __str__(self):  # For Python 2, use __str__ on Python 3
         return self.identifier
 
