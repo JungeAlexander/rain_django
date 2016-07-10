@@ -1,3 +1,20 @@
 from django.db import models
 
-# Create your models here.
+
+# TODO allow to add proteins - introduce super-class Entity an then RNA and Protein inherit from Entity?
+class RNA(models.Model):
+    identifier = models.CharField(max_length=128, unique=True)
+    description = models.TextField()
+    views = models.IntegerField(default=0)
+
+    def __str__(self):  # For Python 2, use __str__ on Python 3
+        return self.identifier
+
+
+class Interaction(models.Model):
+    entity1 = models.ForeignKey(RNA, on_delete=models.CASCADE, related_name='entity1')
+    entity2 = models.ForeignKey(RNA, on_delete=models.CASCADE, related_name='entity2')
+    views = models.IntegerField(default=0)
+
+    def __str__(self):  # For Python 2, use __str__ on Python 3
+        return str(self.entity1) + '-' + str(self.entity2)
