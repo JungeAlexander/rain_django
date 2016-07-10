@@ -1,8 +1,10 @@
 from django.http import HttpResponse
-
+from .models import Interaction
 
 def index(request):
-    return HttpResponse("Hello, world. You're at the portal index.")
+    interactions = Interaction.objects.all()
+    output = '<br>'.join([str(i) for i in interactions])
+    return HttpResponse(output)
 
 
 def interaction_detail(request, interaction_id):
