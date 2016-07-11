@@ -1,4 +1,5 @@
 from django.http import HttpResponse
+from django.shortcuts import render
 from django.template import loader
 from .models import Interaction, RNA
 
@@ -8,12 +9,11 @@ from .models import Interaction, RNA
 #     return HttpResponse(output)
 
 def index(request):
-    entities = RNA.objects.order_by('identifier')[:2]
-    template = loader.get_template('portal/index.html')
+    entities = RNA.objects.order_by('-identifier')[:2]
     context = {
         'entity_list': entities,
     }
-    return HttpResponse(template.render(context, request))
+    return render(request, 'portal/index.html', context)
 
 
 def interaction_detail(request, interaction_id):
