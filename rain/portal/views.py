@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from django.shortcuts import render
 from django.template import loader
 from .models import Interaction, RNA
@@ -21,7 +21,11 @@ def interaction_detail(request, interaction_id):
 
 
 def rna_detail(request, rna_id):
-    return HttpResponse("You're looking at RNA %s." % rna_id)
+    try:
+        rna = RNA.objects.get(pk=rna_id)
+    except RNA.DoesNotExist:
+        raise Http404("RNA does not exist")
+    return render(request, 'portal/rna_detail.html', {'rna': rna})
 
 
 def rna_description(request, rna_id):
