@@ -1,10 +1,19 @@
 from django.http import HttpResponse
-from .models import Interaction
+from django.template import loader
+from .models import Interaction, RNA
+
+# def index(request):
+#     interactions = Interaction.objects.all()
+#     output = '<br>'.join([str(i) for i in interactions])
+#     return HttpResponse(output)
 
 def index(request):
-    interactions = Interaction.objects.all()
-    output = '<br>'.join([str(i) for i in interactions])
-    return HttpResponse(output)
+    entities = RNA.objects.order_by('identifier')[:2]
+    template = loader.get_template('portal/index.html')
+    context = {
+        'entity_list': entities,
+    }
+    return HttpResponse(template.render(context, request))
 
 
 def interaction_detail(request, interaction_id):
