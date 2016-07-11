@@ -1,0 +1,9 @@
+{% if entity_list %}
+    <ul>
+    {% for entity in entity_list %}
+        <li><a href="/portal/rna/{{ entity.id }}/description/">{{ entity.identifier }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No entities found.</p>
+{% endif %}
