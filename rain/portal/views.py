@@ -1,5 +1,5 @@
 from django.http import HttpResponse, Http404
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from django.template import loader
 from .models import Interaction, RNA
 
@@ -21,10 +21,7 @@ def interaction_detail(request, interaction_id):
 
 
 def rna_detail(request, rna_id):
-    try:
-        rna = RNA.objects.get(pk=rna_id)
-    except RNA.DoesNotExist:
-        raise Http404("RNA does not exist")
+    rna = get_object_or_404(RNA, pk=rna_id)
     return render(request, 'portal/rna_detail.html', {'rna': rna})
 
 
