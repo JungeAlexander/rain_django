@@ -14,6 +14,15 @@ class RNA(models.Model):
         return self.identifier
 
 
+class RNAalias(models.Model):
+    rna = models.ForeignKey(RNA, on_delete=models.CASCADE)
+    identifier = models.CharField(max_length=128, unique=True)
+    source = models.TextField()
+
+    def __str__(self):  # For Python 2, use __str__ on Python 3
+        return self.identifier
+
+
 class Interaction(models.Model):
     entity1 = models.ForeignKey(RNA, on_delete=models.CASCADE, related_name='entity1')
     entity2 = models.ForeignKey(RNA, on_delete=models.CASCADE, related_name='entity2')
