@@ -1,7 +1,7 @@
 {% if entity_list %}
     <ul>
     {% for entity in entity_list %}
-        <li><a href="/portal/rna/{{ entity.id }}/">{{ entity.identifier }}</a></li>
+        <li><a href="/{% url 'rna_detail entity.id %}/">{{ entity.identifier }}</a></li>
     {% endfor %}
     </ul>
 {% else %}
