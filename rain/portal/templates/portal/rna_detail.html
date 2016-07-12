@@ -1,5 +1,14 @@
 <h1>{{ rna.identifier }}</h1>
 
+<h2>Description</h2>
+
 <ul>
     <li>{{ rna.description }}</li>
+</ul>
+
+<h2>Aliases</h2>
+<ul>
+    {% for ali in rna.rnaalias_set.all %}
+        <li>{{ ali.identifier }} {{ ali.source }}</li>
+    {% endfor %}
 </ul>
