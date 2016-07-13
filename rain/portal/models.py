@@ -18,6 +18,7 @@ class RNAalias(models.Model):
     rna = models.ForeignKey(RNA, on_delete=models.CASCADE)
     identifier = models.CharField(max_length=128, unique=True)
     source = models.TextField()
+    votes = models.IntegerField(default=0)
 
     def __str__(self):  # For Python 2, use __str__ on Python 3
         return self.identifier
