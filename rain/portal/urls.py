@@ -13,4 +13,7 @@ urlpatterns = [
     url(r'^rna/(?P<rna_id>[0-9]+)/description/$', views.rna_description, name='rna_description'),
     # ex: /portal/rna/3/vote/
     url(r'^rna/(?P<rna_id>[0-9]+)/vote/$', views.vote, name='vote'),
+    # TODO remove? was not part of tutorial
+    # ex: /portal/rna/3/results/
+    url(r'^rna/(?P<rna_id>[0-9]+)/results/$', views.results, name='results'),
 ]

@@ -31,7 +31,7 @@ def rna_description(request, rna_id):
 
 
 def vote(request, rna_id):
-    rna = get_object_or_404(RNAalias, pk=rna_id)
+    rna = get_object_or_404(RNA, pk=rna_id)
     try:
         selected_choice = rna.rnaalias_set.get(pk=request.POST['choice'])
     except (KeyError, RNAalias.DoesNotExist):
@@ -51,4 +51,4 @@ def vote(request, rna_id):
 
 def results(request, rna_id):
     rna = get_object_or_404(RNA, pk=rna_id)
-    return render(request, 'polls/results.html', {'rna': rna})
+    return render(request, 'portal/results.html', {'rna': rna})
