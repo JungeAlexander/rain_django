@@ -1,5 +1,7 @@
 <h1>{{ rna.identifier }}</h1>
 
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
 <h2>Description</h2>
 
 <ul>
@@ -7,8 +9,12 @@
 </ul>
 
 <h2>Aliases</h2>
-<ul>
-    {% for ali in rna.rnaalias_set.all %}
-        <li>{{ ali.identifier }} {{ ali.source }}</li>
-    {% endfor %}
-</ul>
+
+<form action="{% url 'portal:vote' rna.id %}" method="post">
+{% csrf_token %}
+{% for ali in rna.rnaalias_set.all %}
+    <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ ali.id }}" />
+    <label for="choice{{ forloop.counter }}">{{ ali.identifier }} {{ ali.source }}</label><br />
+{% endfor %}
+<input type="submit" value="Vote" />
+</form>
