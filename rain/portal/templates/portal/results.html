@@ -1,0 +1,9 @@
+<h1>{{ rna.identifier }}</h1>
+
+<ul>
+{% for ali in rna.rnaalias_set.all %}
+    <li>{{ ali.identifier }} -- {{ ali.votes }} vote{{ ali.votes|pluralize }}</li>
+{% endfor %}
+</ul>
+
+<a href="{% url 'portal:rna_detail' rna.id %}">Vote again?</a>
