@@ -3,28 +3,26 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.template import loader
+from django.views import generic
 from .models import Interaction, RNA, RNAalias
 
-# def index(request):
-#     interactions = Interaction.objects.all()
-#     output = '<br>'.join([str(i) for i in interactions])
-#     return HttpResponse(output)
 
-def index(request):
-    entities = RNA.objects.order_by('-identifier')[:2]
-    context = {
-        'entity_list': entities,
-    }
-    return render(request, 'portal/index.html', context)
+class IndexView(generic.ListView):
+    template_name = 'portal/index.html'
+    context_object_name = 'entity_list'
+
+    def get_queryset(self):
+        """Return the last five published questions."""
+        return RNA.objects.order_by('-identifier')[:2]
 
 
 def interaction_detail(request, interaction_id):
     return HttpResponse("You're looking at interaction %s." % interaction_id)
 
 
-def rna_detail(request, rna_id):
-    rna = get_object_or_404(RNA, pk=rna_id)
-    return render(request, 'portal/rna_detail.html', {'rna': rna})
+class DetailView(generic.DetailView):
+    model = RNA
+    template_name = 'portal/rna_detail.html'
 
 
 def rna_description(request, rna_id):
@@ -50,6 +48,6 @@ def vote(request, rna_id):
         return HttpResponseRedirect(reverse('portal:results', args=(rna.id,)))
 
 
-def results(request, rna_id):
-    rna = get_object_or_404(RNA, pk=rna_id)
-    return render(request, 'portal/results.html', {'rna': rna})
+class ResultsView(generic.DetailView):
+    model = RNA
+    template_name = 'portal/results.html'
