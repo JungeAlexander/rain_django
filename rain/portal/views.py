@@ -12,8 +12,9 @@ class IndexView(generic.ListView):
     context_object_name = 'entity_list'
 
     def get_queryset(self):
-        """Return the last five published questions."""
-        return RNA.objects.order_by('-identifier')[:2]
+        """Return the three RNAs appearing last in alphabetical order. However, do not show RNAs with
+        an empty description."""
+        return RNA.objects.exclude(description='').order_by('-identifier')[:3]
 
 
 def interaction_detail(request, interaction_id):
