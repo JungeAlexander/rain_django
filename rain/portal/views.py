@@ -25,6 +25,12 @@ class DetailView(generic.DetailView):
     model = RNA
     template_name = 'portal/rna_detail.html'
 
+    def get_queryset(self):
+        """
+        Excludes any RNAs with no description.
+        """
+        return RNA.objects.exclude(description='')
+
 
 def rna_description(request, rna_id):
     return HttpResponse("You're looking at the description RNA %s." % rna_id)
