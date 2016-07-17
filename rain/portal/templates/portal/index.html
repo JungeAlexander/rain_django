@@ -1,3 +1,7 @@
+{% load staticfiles %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'portal/style.css' %}" />
+
 {% if entity_list %}
     <ul>
     {% for entity in entity_list %}
