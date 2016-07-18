@@ -10,6 +10,10 @@ class RNA(models.Model):
     def is_mirna(self):
         return self.identifier.startswith('miRNA')
 
+    is_mirna.admin_order_field = 'identifier'
+    is_mirna.boolean = True
+    is_mirna.short_description = 'Is a microRNA?'
+
     def __str__(self):  # For Python 2, use __str__ on Python 3
         return self.identifier
 
