@@ -10,7 +10,7 @@ class InteractionAdmin(admin.ModelAdmin):
     ]
 
 
-class RNAaliasInline(admin.StackedInline):
+class RNAaliasInline(admin.TabularInline):
     model = RNAalias
     extra = 3
 
