@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Interaction
+from .models import Interaction, RNA, RNAalias
 
 
 class InteractionAdmin(admin.ModelAdmin):
@@ -10,3 +10,5 @@ class InteractionAdmin(admin.ModelAdmin):
     ]
 
 admin.site.register(Interaction, InteractionAdmin)
+admin.site.register(RNA)
+admin.site.register(RNAalias)
