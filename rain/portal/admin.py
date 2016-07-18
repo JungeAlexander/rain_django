@@ -22,6 +22,9 @@ class RNAAdmin(admin.ModelAdmin):
         ('Description',      {'fields': ['description'], 'classes': ['collapse']}),
     ]
     inlines = [RNAaliasInline]
+    list_display = ('identifier', 'description', 'is_mirna')
+    list_filter = ['views', 'identifier']
+    search_fields = ['description']
 
 admin.site.register(Interaction, InteractionAdmin)
 admin.site.register(RNA, RNAAdmin)
