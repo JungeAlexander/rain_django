@@ -9,6 +9,20 @@ class InteractionAdmin(admin.ModelAdmin):
         ('Interacting entities', {'fields': ['entity1', 'entity2']}),
     ]
 
+
+class RNAaliasInline(admin.StackedInline):
+    model = RNAalias
+    extra = 3
+
+
+class RNAAdmin(admin.ModelAdmin):
+
+    fieldsets = [
+        (None,               {'fields': ['identifier', 'views']}),
+        ('Description',      {'fields': ['description'], 'classes': ['collapse']}),
+    ]
+    inlines = [RNAaliasInline]
+
 admin.site.register(Interaction, InteractionAdmin)
-admin.site.register(RNA)
-admin.site.register(RNAalias)
+admin.site.register(RNA, RNAAdmin)
+# admin.site.register(RNAalias)
