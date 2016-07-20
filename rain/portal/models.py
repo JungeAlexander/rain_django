@@ -34,7 +34,7 @@ class Interaction(models.Model):
     views = models.IntegerField(default=0)
 
     def __str__(self):  # For Python 2, use __str__ on Python 3
-        return str(self.entity1) + '-' + str(self.entity2)  # FIXME: how to acccess entities?
+        return ' - '.join(sorted([str(e) for e in self.entities.all()]))
 
 
 class InteractionInfo(models.Model):
