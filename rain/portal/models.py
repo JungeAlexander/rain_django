@@ -35,3 +35,15 @@ class Interaction(models.Model):
 
     def __str__(self):  # For Python 2, use __str__ on Python 3
         return str(self.entity1) + '-' + str(self.entity2)  # FIXME: how to acccess entities?
+
+
+class InteractionInfo(models.Model):
+    INTERACTION_TYPES = (
+        ('Co', 'Combined'),
+        ('Cu', 'Curated'),
+        ('Ex', 'Experiments'),
+        ('Pr', 'Predictions'),
+        ('Te', 'Textmining'),
+    )
+    type = models.CharField(max_length=2, choices=INTERACTION_TYPES)
+    score = models.DecimalField(max_digits=6, decimal_places=5)
