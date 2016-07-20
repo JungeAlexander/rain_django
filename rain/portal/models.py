@@ -38,6 +38,7 @@ class Interaction(models.Model):
 
 
 class InteractionInfo(models.Model):
+    interaction = models.ForeignKey(Interaction, on_delete=models.CASCADE)
     INTERACTION_TYPES = (
         ('Co', 'Combined'),
         ('Cu', 'Curated'),
