@@ -48,3 +48,6 @@ class InteractionInfo(models.Model):
     )
     type = models.CharField(max_length=2, choices=INTERACTION_TYPES)
     score = models.DecimalField(max_digits=6, decimal_places=5)
+
+    def __str__(self):  # For Python 2, use __str__ on Python 3
+        return 'Interaction {}: type {}, score {}'.format(str(self.interaction), str(self.type), str(self.score))
