@@ -38,15 +38,8 @@ class RNAalias(models.Model):
 
 
 class Interaction(models.Model):
-    entities = models.ManyToManyField(RNA, through='InteractionInfo')
+    entities = models.ManyToManyField(Entity)
     views = models.IntegerField(default=0)
-
-    def __str__(self):  # For Python 2, use __str__ on Python 3
-        return ' - '.join(sorted([str(e) for e in self.entities.all()]))
-
-
-class InteractionInfo(models.Model):
-    interaction = models.ForeignKey(Interaction, on_delete=models.CASCADE)
     INTERACTION_TYPES = (
         ('Co', 'Combined'),
         ('Cu', 'Curated'),
@@ -58,4 +51,5 @@ class InteractionInfo(models.Model):
     score = models.DecimalField(max_digits=6, decimal_places=5)
 
     def __str__(self):  # For Python 2, use __str__ on Python 3
-        return 'Interaction {}: type {}, score {}'.format(str(self.interaction), str(self.type), str(self.score))
+        interaction_str = ' - '.join(sorted([str(e) for e in self.entities.all()]))
+        return 'Interaction {}: type {}, score {}'.format(interaction_str, str(self.type), str(self.score))
