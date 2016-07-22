@@ -1,11 +1,12 @@
 from django.db import models
 
 
-# TODO allow to add proteins - introduce super-class Entity an then RNA and Protein inherit from Entity?
-# TODO abstract classes should be useful: https://docs.djangoproject.com/en/1.9/topics/db/models/#model-inheritance
 class Entity(models.Model):
     identifier = models.CharField(max_length=128, unique=True)
     views = models.IntegerField(default=0)
+
+    def __str__(self):  # For Python 2, use __str__ on Python 3
+        return self.identifier
 
     class Meta:
         abstract = True
@@ -24,9 +25,6 @@ class RNA(Entity):
     is_mirna.admin_order_field = 'identifier'
     is_mirna.boolean = True
     is_mirna.short_description = 'Is a microRNA?'
-
-    def __str__(self):  # For Python 2, use __str__ on Python 3
-        return self.identifier
 
 
 class RNAalias(models.Model):
