@@ -1,7 +1,24 @@
 from django.db import models
 
 
+class Interaction(models.Model):
+    views = models.IntegerField(default=0)
+    INTERACTION_TYPES = (
+        ('Co', 'Combined'),
+        ('Cu', 'Curated'),
+        ('Ex', 'Experiments'),
+        ('Pr', 'Predictions'),
+        ('Te', 'Textmining'),
+    )
+    type = models.CharField(max_length=2, choices=INTERACTION_TYPES, null=True)
+    score = models.DecimalField(max_digits=6, decimal_places=5, null=True)
+
+    def __str__(self):  # For Python 2, use __str__ on Python 3
+        interaction_str = ' - '.join(sorted([str(e) for e in self.entities.all()]))
+        return 'Interaction {}: type {}, score {}'.format(interaction_str, str(self.type), str(self.score))
+
 class Entity(models.Model):
+    interactions = models.ManyToManyField(Interaction)
     identifier = models.CharField(max_length=128, unique=True)
     views = models.IntegerField(default=0)
 
@@ -36,20 +53,3 @@ class RNAalias(models.Model):
     def __str__(self):  # For Python 2, use __str__ on Python 3
         return self.identifier
 
-
-class Interaction(models.Model):
-    entities = models.ManyToManyField(Entity)
-    views = models.IntegerField(default=0)
-    INTERACTION_TYPES = (
-        ('Co', 'Combined'),
-        ('Cu', 'Curated'),
-        ('Ex', 'Experiments'),
-        ('Pr', 'Predictions'),
-        ('Te', 'Textmining'),
-    )
-    type = models.CharField(max_length=2, choices=INTERACTION_TYPES)
-    score = models.DecimalField(max_digits=6, decimal_places=5)
-
-    def __str__(self):  # For Python 2, use __str__ on Python 3
-        interaction_str = ' - '.join(sorted([str(e) for e in self.entities.all()]))
-        return 'Interaction {}: type {}, score {}'.format(interaction_str, str(self.type), str(self.score))
