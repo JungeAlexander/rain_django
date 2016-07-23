@@ -14,7 +14,7 @@ class Interaction(models.Model):
     score = models.DecimalField(max_digits=6, decimal_places=5, null=True)
 
     def __str__(self):  # For Python 2, use __str__ on Python 3
-        interaction_str = ' - '.join(sorted([str(e) for e in self.entities.all()]))
+        interaction_str = ' - '.join(sorted([str(e) for e in self.entity_set.all()]))
         return 'Interaction {}: type {}, score {}'.format(interaction_str, str(self.type), str(self.score))
 
 class Entity(models.Model):
