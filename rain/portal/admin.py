@@ -2,12 +2,12 @@ from django.contrib import admin
 from .models import Interaction, RNA, RNAalias
 
 
-class InteractionAdmin(admin.ModelAdmin):
-
-    fieldsets = [
-        (None,               {'fields': ['views']}),
-        ('Interacting entities', {'fields': ['entity1', 'entity2']}),
-    ]
+# class InteractionAdmin(admin.ModelAdmin):
+#
+#     fieldsets = [
+#         (None,               {'fields': ['views']}),
+#         ('Interacting entities', {'fields': ['entity1', 'entity2']}),
+#     ]
 
 
 class RNAaliasInline(admin.TabularInline):
@@ -26,6 +26,7 @@ class RNAAdmin(admin.ModelAdmin):
     list_filter = ['views', 'identifier']
     search_fields = ['description']
 
-admin.site.register(Interaction, InteractionAdmin)
+# admin.site.register(Interaction, InteractionAdmin)
+admin.site.register(Interaction)
 admin.site.register(RNA, RNAAdmin)
 # admin.site.register(RNAalias)
