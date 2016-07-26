@@ -14,7 +14,9 @@ class Interaction(models.Model):
     score = models.DecimalField(max_digits=6, decimal_places=5, null=True)
 
     def __str__(self):  # For Python 2, use __str__ on Python 3
-         return 'type {}, score {}'.format(str(self.type), str(self.score))
+        rna_str = ' - '.join(sorted([str(r) for r in self.rna_set.all()]))
+        protein_str = ' - '.join(sorted([str(p) for p in self.protein_set.all()]))
+        return 'RNAs {}, Proteins {}, type {}, score {}'.format(rna_str, protein_str, str(self.type), str(self.score))
 
 class Entity(models.Model):
     interactions = models.ManyToManyField(Interaction)
