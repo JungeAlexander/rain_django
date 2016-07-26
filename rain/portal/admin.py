@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Interaction, RNA, RNAalias
+from .models import Interaction, Protein, RNA, RNAalias
 
 
 class InteractionAdmin(admin.ModelAdmin):
@@ -28,5 +28,6 @@ class RNAAdmin(admin.ModelAdmin):
     search_fields = ['description']
 
 admin.site.register(Interaction, InteractionAdmin)
+admin.site.register(Protein)
 admin.site.register(RNA, RNAAdmin)
-# admin.site.register(RNAalias)
+admin.site.register(RNAalias)
