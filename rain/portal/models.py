@@ -13,9 +13,8 @@ class Interaction(models.Model):
     type = models.CharField(max_length=2, choices=INTERACTION_TYPES, null=True)
     score = models.DecimalField(max_digits=6, decimal_places=5, null=True)
 
-    # def __str__(self):  # For Python 2, use __str__ on Python 3
-    #     interaction_str = ' - '.join(sorted([str(e) for e in self.entity_set.all()]))
-    #     return 'Interaction {}: type {}, score {}'.format(interaction_str, str(self.type), str(self.score))
+    def __str__(self):  # For Python 2, use __str__ on Python 3
+         return 'type {}, score {}'.format(str(self.type), str(self.score))
 
 class Entity(models.Model):
     interactions = models.ManyToManyField(Interaction)
