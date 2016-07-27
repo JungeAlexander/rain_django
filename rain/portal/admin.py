@@ -6,7 +6,9 @@ class InteractionAdmin(admin.ModelAdmin):
 
     fieldsets = [
         (None,               {'fields': ['type', 'score', 'views']}),
-        ('Interacting entities', {'fields': ['rna_set', 'protein_set']}),
+        # Note this does not seem abs. trivial. Check e.g.:
+        # http://stackoverflow.com/questions/660260/django-admin-form-for-many-to-many-relationship
+        # ('Interacting entities', {'fields': ['rna_set', 'protein_set']}),
     ]
 
 
